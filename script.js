@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function checkAdmin() {
     const password = document.getElementById("admin-password").value;
     
-    if (password === "your-secret-password") {  // Change this to your own password!
+    if (password === "12345") {  // Change this to your own password!
         document.getElementById("rsvp-table").style.display = "table"; // Show table
         loadRSVPs(); // Load RSVP responses
     } else {
