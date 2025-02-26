@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
-// Your Firebase configuration (Replace with your real Firebase credentials)
+// Your Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyA2C0rpSx1gTO3lHFqn0_zy8hKIEcnZ9O0",
     authDomain: "graduation-ceremony-rsvp.firebaseapp.com",
@@ -15,6 +15,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+// Check if Firebase initialized
+console.log("✅ Firebase Initialized", app);
 
 // Function to submit RSVP
 async function submitRSVP(event) {
@@ -36,11 +39,15 @@ async function submitRSVP(event) {
             allergies,
             accessibility
         });
+
         alert("✅ RSVP submitted successfully!");
+        document.getElementById("rsvp-form").reset(); // Clear form after submission
     } catch (error) {
-        alert("❌ Error submitting RSVP: " + error);
+        console.error("❌ Error submitting RSVP:", error);
+        alert("❌ Error submitting RSVP: " + error.message);
     }
 }
 
 // Attach function to form submit button
 document.getElementById("rsvp-form").addEventListener("submit", submitRSVP);
+
