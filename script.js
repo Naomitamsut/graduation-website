@@ -55,19 +55,7 @@ window.checkAdmin = function () {
 };
 
 
-// ✅ Function to show RSVPs
-async function showRSVPs() {
-    const rsvpList = document.getElementById("rsvp-list");
-    rsvpList.innerHTML = ""; // Clear previous results
 
-    const querySnapshot = await getDocs(collection(db, "rsvps"));
-    querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const rsvpItem = document.createElement("p");
-        rsvpItem.textContent = `📝 ${data.studentName} - ${data.numPeople} guests - Diet: ${data.dietaryRestrictions}`;
-        rsvpList.appendChild(rsvpItem);
-    });
-}
 
 // Function to fetch and display RSVPs
 async function showRSVPs() {
