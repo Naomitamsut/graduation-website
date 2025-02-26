@@ -56,10 +56,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+// ✅ Check admin password and show RSVPs
 function checkAdmin() {
     const password = document.getElementById("admin-password").value;
-    
-    if (password === "12345") {  // Change this to your own password!
+
+    if (password === "your-secret-password") {  // Change this!
         document.getElementById("rsvp-table").style.display = "table"; // Show table
         loadRSVPs(); // Load RSVP responses
     } else {
@@ -67,6 +70,7 @@ function checkAdmin() {
     }
 }
 
+// ✅ Fetch RSVP data from Firestore and display it
 async function loadRSVPs() {
     const rsvpTable = document.getElementById("rsvp-table");
 
@@ -81,15 +85,19 @@ async function loadRSVPs() {
         </tr>
     `;
 
-    const querySnapshot = await getDocs(collection(db, "rsvps"));
-    
-    querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const row = rsvpTable.insertRow();
-        row.insertCell(0).textContent = data.studentName;
-        row.insertCell(1).textContent = data.numPeople;
-        row.insertCell(2).textContent = data.dietaryRestrictions;
-        row.insertCell(3).textContent = data.allergies;
-        row.insertCell(4).textContent = data.accessibility;
-    });
+    try {
+        const querySnapshot = await getDocs(collection(db, "rsvps"));
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const row = rsvpTable.insertRow();
+            row.insertCell(0).textContent = data.studentName;
+            row.insertCell(1).textContent = data.numPeople;
+            row.insertCell(2).textContent = data.dietaryRestrictions;
+            row.insertCell(3).textContent = data.allergies;
+            row.insertCell(4).textContent = data.accessibility;
+        });
+    } catch (error) {
+        alert("❌ Error loading RSVPs: " + error);
+    }
 }
