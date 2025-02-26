@@ -62,7 +62,7 @@ import { getFirestore, collection, getDocs } from "https://www.gstatic.com/fireb
 function checkAdmin() {
     const password = document.getElementById("admin-password").value;
 
-    if (password === "your-secret-password") {  // Change this!
+    if (password === "12345") {  // Change this!
         document.getElementById("rsvp-table").style.display = "table"; // Show table
         loadRSVPs(); // Load RSVP responses
     } else {
