@@ -44,15 +44,16 @@ async function submitRSVP(event) {
 // ✅ Attach function to form submit button
 document.getElementById("rsvp-form").addEventListener("submit", submitRSVP);
 
-// ✅ Function to check admin password and show RSVPs
 window.checkAdmin = function () {
     const password = prompt("Enter admin password:");
-    if if (password === "12345") { // Change "YOUR_NEW_PASSWORD" to your real password
+    
+    if (password === "12345") {  // ✅ Change to your real password
         showRSVPs();
     } else {
-        alert("Incorrect password!");
+        alert("❌ Incorrect password! Try again.");
     }
 };
+
 
 // ✅ Function to show RSVPs
 async function showRSVPs() {
