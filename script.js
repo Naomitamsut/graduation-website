@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
-// Firebase configuration
+// ✅ Firebase configuration (Use your real credentials)
 const firebaseConfig = {
     apiKey: "AIzaSyA2C0rpSx1gTO3lHFqn0_zy8hKIEcnZ9O0",
     authDomain: "graduation-ceremony-rsvp.firebaseapp.com",
@@ -12,31 +12,20 @@ const firebaseConfig = {
     appId: "1:832509482723:web:82689e4e03e104a94f57d6"
 };
 
-// Initialize Firebase
+// ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Debugging: Check Firebase initialization
-console.log("✅ Firebase Initialized", app);
-
-// Function to submit RSVP
+// ✅ Function to submit RSVP
 async function submitRSVP(event) {
-    event.preventDefault(); // Stop form from refreshing the page
-
-    console.log("📤 Submitting RSVP...");
+    event.preventDefault(); // Stop form from refreshing
 
     // Get form values
-    const studentName = document.getElementById("studentName").value.trim();
-    const numPeople = document.getElementById("guests").value.trim();
-    const dietaryRestrictions = document.getElementById("diet").value.trim();
-    const allergies = document.getElementById("allergies").value.trim();
-    const accessibility = document.getElementById("accessibility").value.trim();
-
-    // Prevent submission if required fields are empty
-    if (!studentName || !numPeople) {
-        alert("⚠️ Please fill in all required fields.");
-        return;
-    }
+    const studentName = document.getElementById("student-name").value;
+    const numPeople = document.getElementById("num-people").value;
+    const dietaryRestrictions = document.getElementById("dietary-restrictions").value;
+    const allergies = document.getElementById("allergies").value;
+    const accessibility = document.getElementById("accessibility").value;
 
     try {
         // Add RSVP data to Firestore
@@ -45,25 +34,16 @@ async function submitRSVP(event) {
             numPeople,
             dietaryRestrictions,
             allergies,
-            accessibility,
-            timestamp: new Date()
+            accessibility
         });
-
         alert("✅ RSVP submitted successfully!");
-        document.getElementById("rsvpForm").reset(); // Clear form after submission
+
+        // ✅ Clear form fields after successful submission
+        document.getElementById("rsvp-form").reset();
     } catch (error) {
-        console.error("❌ Error submitting RSVP:", error);
-        alert("❌ Error submitting RSVP: " + error.message);
+        alert("❌ Error submitting RSVP: " + error);
     }
 }
 
-// Attach event listener AFTER the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("rsvpForm");
-    if (form) {
-        form.addEventListener("submit", submitRSVP);
-        console.log("📌 Event listener attached to form.");
-    } else {
-        console.error("⚠️ Form not found.");
-    }
-});
+// ✅ Attach function to form submit button
+document.getElementById("rsvp-form").addEventListener("submit", submitRSVP);
