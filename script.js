@@ -56,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
 // ✅ Check admin password and show RSVPs
 function checkAdmin() {
@@ -101,3 +100,4 @@ async function loadRSVPs() {
         alert("❌ Error loading RSVPs: " + error);
     }
 }
+</html>
