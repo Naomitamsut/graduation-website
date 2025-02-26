@@ -44,6 +44,15 @@ async function submitRSVP(event) {
         alert("❌ Error submitting RSVP: " + error);
     }
 }
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("📢 DOM fully loaded, adding event listener!");
+    const form = document.getElementById("rsvp-form");
 
-// ✅ Attach function to form submit button
-document.getElementById("rsvp-form").addEventListener("submit", submitRSVP);
+    if (form) {
+        form.addEventListener("submit", submitRSVP);
+        console.log("✅ Event listener added to the form!");
+    } else {
+        console.warn("⚠️ Form not found.");
+    }
+});
+
