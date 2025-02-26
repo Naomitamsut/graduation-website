@@ -68,3 +68,30 @@ async function showRSVPs() {
         rsvpList.appendChild(rsvpItem);
     });
 }
+
+// Function to fetch and display RSVPs
+async function showRSVPs() {
+    const rsvpContainer = document.getElementById("rsvp-container"); // Ensure this exists in HTML
+    rsvpContainer.innerHTML = "<h3>Loading RSVPs...</h3>"; // Show loading text
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "rsvps")); // Fetch RSVPs from Firestore
+        let rsvpList = "<h3>RSVP List</h3><ul>";
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            rsvpList += `
+                <li>
+                    <strong>${data.studentName}</strong> - Guests: ${data.numPeople} <br>
+                    Dietary: ${data.dietaryRestrictions || "None"}, Allergies: ${data.allergies || "None"} <br>
+                    Accessibility: ${data.accessibility || "None"}
+                </li><br>
+            `;
+        });
+
+        rsvpList += "</ul>";
+        rsvpContainer.innerHTML = rsvpList; // Display RSVPs in container
+    } catch (error) {
+        rsvpContainer.innerHTML = "<p>❌ Error loading RSVPs: " + error.message + "</p>";
+    }
+}
