@@ -47,7 +47,7 @@ document.getElementById("rsvp-form").addEventListener("submit", submitRSVP);
 // ✅ Function to check admin password and show RSVPs
 window.checkAdmin = function () {
     const password = prompt("Enter admin password:");
-    if (password === "12345") { // Change "grad2025" to your real password
+    if if (password === "12345") { // Change "YOUR_NEW_PASSWORD" to your real password
         showRSVPs();
     } else {
         alert("Incorrect password!");
