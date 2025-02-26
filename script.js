@@ -1,17 +1,15 @@
-<script src="script.js" type="module"></script>
-
 // Import Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
-// Your Firebase configuration
+// Your Firebase configuration (Replace with your real Firebase credentials)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyA2C0rpSx1gTO3lHFqn0_zy8hKIEcnZ9O0",
+    authDomain: "graduation-ceremony-rsvp.firebaseapp.com",
+    projectId: "graduation-ceremony-rsvp",
+    storageBucket: "graduation-ceremony-rsvp.firebasestorage.app",
+    messagingSenderId: "832509482723",
+    appId: "1:832509482723:web:82689e4e03e104a94f57d6"
 };
 
 // Initialize Firebase
@@ -22,13 +20,15 @@ const db = getFirestore(app);
 async function submitRSVP(event) {
     event.preventDefault(); // Prevent form from refreshing
 
-    const studentName = document.getElementById('student-name').value;
-    const numPeople = document.getElementById('num-people').value;
-    const dietaryRestrictions = document.getElementById('dietary-restrictions').value;
-    const allergies = document.getElementById('allergies').value;
-    const accessibility = document.getElementById('accessibility').value;
+    // Get form values
+    const studentName = document.getElementById("student-name").value;
+    const numPeople = document.getElementById("num-people").value;
+    const dietaryRestrictions = document.getElementById("dietary-restrictions").value;
+    const allergies = document.getElementById("allergies").value;
+    const accessibility = document.getElementById("accessibility").value;
 
     try {
+        // Add RSVP data to Firestore
         await addDoc(collection(db, "rsvps"), {
             studentName,
             numPeople,
@@ -36,9 +36,9 @@ async function submitRSVP(event) {
             allergies,
             accessibility
         });
-        alert("RSVP submitted successfully!");
+        alert("✅ RSVP submitted successfully!");
     } catch (error) {
-        alert("Error submitting RSVP: " + error);
+        alert("❌ Error submitting RSVP: " + error);
     }
 }
 
