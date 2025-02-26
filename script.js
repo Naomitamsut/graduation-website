@@ -56,3 +56,40 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+function checkAdmin() {
+    const password = document.getElementById("admin-password").value;
+    
+    if (password === "your-secret-password") {  // Change this to your own password!
+        document.getElementById("rsvp-table").style.display = "table"; // Show table
+        loadRSVPs(); // Load RSVP responses
+    } else {
+        alert("❌ Incorrect password!");
+    }
+}
+
+async function loadRSVPs() {
+    const rsvpTable = document.getElementById("rsvp-table");
+
+    // Clear old rows (except the header)
+    rsvpTable.innerHTML = `
+        <tr>
+            <th>Student Name</th>
+            <th>Number of Guests</th>
+            <th>Dietary Restrictions</th>
+            <th>Allergies</th>
+            <th>Accessibility Needs</th>
+        </tr>
+    `;
+
+    const querySnapshot = await getDocs(collection(db, "rsvps"));
+    
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const row = rsvpTable.insertRow();
+        row.insertCell(0).textContent = data.studentName;
+        row.insertCell(1).textContent = data.numPeople;
+        row.insertCell(2).textContent = data.dietaryRestrictions;
+        row.insertCell(3).textContent = data.allergies;
+        row.insertCell(4).textContent = data.accessibility;
+    });
+}
