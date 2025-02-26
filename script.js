@@ -4,12 +4,12 @@ import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.c
 
 // ✅ Firebase Configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyA2C0rpSx1gTO3lHFqn0_zy8hKIEcnZ9O0",
+    authDomain: "graduation-ceremony-rsvp.firebaseapp.com",
+    projectId: "graduation-ceremony-rsvp",
+    storageBucket: "graduation-ceremony-rsvp.firebasestorage.app",
+    messagingSenderId: "832509482723",
+    appId: "1:832509482723:web:82689e4e03e104a94f57d6"
 };
 
 // ✅ Initialize Firebase
@@ -47,7 +47,7 @@ document.getElementById("rsvp-form").addEventListener("submit", submitRSVP);
 // ✅ Function to check admin password and show RSVPs
 window.checkAdmin = function () {
     const password = prompt("Enter admin password:");
-    if (password === "grad2025") { // Change "grad2025" to your real password
+    if (password === "2025") { // Change "grad2025" to your real password
         showRSVPs();
     } else {
         alert("Incorrect password!");
