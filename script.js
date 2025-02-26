@@ -21,14 +21,22 @@ console.log("✅ Firebase Initialized", app);
 
 // Function to submit RSVP
 async function submitRSVP(event) {
-    event.preventDefault(); // Prevent form from refreshing
+    event.preventDefault(); // Stop form from refreshing the page
+
+    console.log("📤 Submitting RSVP..."); // Debugging line to confirm function runs
 
     // Get form values
-    const studentName = document.getElementById("student-name").value;
-    const numPeople = document.getElementById("num-people").value;
-    const dietaryRestrictions = document.getElementById("dietary-restrictions").value;
-    const allergies = document.getElementById("allergies").value;
-    const accessibility = document.getElementById("accessibility").value;
+    const studentName = document.getElementById("student-name").value.trim();
+    const numPeople = document.getElementById("num-people").value.trim();
+    const dietaryRestrictions = document.getElementById("dietary-restrictions").value.trim();
+    const allergies = document.getElementById("allergies").value.trim();
+    const accessibility = document.getElementById("accessibility").value.trim();
+
+    // Prevent submission if fields are empty
+    if (!studentName || !numPeople) {
+        alert("⚠️ Please fill in all required fields.");
+        return;
+    }
 
     try {
         // Add RSVP data to Firestore
@@ -37,7 +45,8 @@ async function submitRSVP(event) {
             numPeople,
             dietaryRestrictions,
             allergies,
-            accessibility
+            accessibility,
+            timestamp: new Date() // Adds a timestamp
         });
 
         alert("✅ RSVP submitted successfully!");
@@ -48,6 +57,13 @@ async function submitRSVP(event) {
     }
 }
 
-// Attach function to form submit button
-document.getElementById("rsvp-form").addEventListener("submit", submitRSVP);
-
+// Wait for the DOM to load before adding event listener
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("rsvp-form");
+    if (form) {
+        form.addEventListener("submit", submitRSVP);
+        console.log("📌 Event listener attached to form.");
+    } else {
+        console.error("⚠️ Form not found.");
+    }
+});
